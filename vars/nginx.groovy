@@ -10,11 +10,9 @@ def call(Map params = [:]) {
         agent {
             label params.LABEL
         }
-
         environment {
             NEXUS = credentials("NEXUS")
         }
-
         stages {
 
             stage('Labeling Build') {
@@ -25,18 +23,6 @@ def call(Map params = [:]) {
                         addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "BRANCH = ${str}"
 //            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
-                }
-            }
-
-            stage('Download NodeJS Dependencies') {
-                steps {
-                    sh """
-            echo "+++++++ Before"
-            ls -l
-            npm install
-            echo "+++++++ After"
-            ls -l
-          """
                 }
             }
 
@@ -52,11 +38,13 @@ def call(Map params = [:]) {
             stage('Check Code Quality Gate') {
                 steps {
                     sh """
+            #sleep 5
             #sonar-quality-gate.sh admin admin123 172.31.28.20 ${params.COMPONENT}
             echo OK 
           """
                 }
             }
+
 
             stage('Test Cases') {
                 steps {
@@ -72,7 +60,9 @@ def call(Map params = [:]) {
                     sh """
           GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
           echo \${GIT_TAG} >version
-          zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js version
+          cd static
+          zip -r ../${params.COMPONENT}-\${GIT_TAG}.zip *
+          cd ..
           curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
           """
                 }
@@ -83,7 +73,7 @@ def call(Map params = [:]) {
 //          script {
 //            GIT_TAG = GIT_BRANCH.split('/').last()
 //          }
-//          build job: 'Mutable/App-Deploy', parameters: [
+//          build job: 'App-Deploy', parameters: [
 //              string(name: 'ENV', value: 'dev'),
 //              string(name: 'APP_VERSION', value: "${GIT_TAG}"),
 //              string(name: 'COMPONENT', value: "${params.COMPONENT}")

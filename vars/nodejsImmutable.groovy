@@ -11,6 +11,10 @@ def call(Map params = [:]) {
             label params.LABEL
         }
 
+        options {
+            ansiColor('xterm')
+        }
+
         environment {
             NEXUS = credentials("NEXUS")
         }
@@ -73,7 +77,36 @@ def call(Map params = [:]) {
           GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
           echo \${GIT_TAG} >version
           zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js version
-          curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+          curl -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+          """
+                }
+            }
+
+            stage('Make AMI') {
+                when {
+                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                }
+                steps {
+                    sh """
+          GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
+          export TF_VAR_APP_VERSION=\${GIT_TAG}
+          terraform init 
+          terraform apply -auto-approve
+          """
+                }
+            }
+
+            stage('Delete AMI Instances') {
+                when {
+                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                }
+                steps {
+                    sh """
+          GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
+          export TF_VAR_APP_VERSION=\${GIT_TAG}
+          terraform init 
+          terraform state rm module.ami.aws_ami_from_instance.ami
+          terraform destroy -auto-approve
           """
                 }
             }

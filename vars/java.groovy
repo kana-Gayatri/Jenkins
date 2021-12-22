@@ -28,14 +28,10 @@ def call(Map params = [:]) {
                 }
             }
 
-            stage('Download NodeJS Dependencies') {
+            stage('Maven Package') {
                 steps {
                     sh """
-            echo "+++++++ Before"
-            ls -l
-            npm install
-            echo "+++++++ After"
-            ls -l
+            mvn package
           """
                 }
             }
@@ -43,7 +39,7 @@ def call(Map params = [:]) {
             stage('Submit Code Quality') {
                 steps {
                     sh """
-            #sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.28.20:9000 -Dsonar.login=b1edb395b6a67961b8716cf4ac49cddb8e39f6d5
+            #sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.java.binaries=target/. -Dsonar.host.url=http://172.31.28.20:9000 -Dsonar.login=b1edb395b6a67961b8716cf4ac49cddb8e39f6d5
             echo OK
           """
                 }
@@ -57,6 +53,7 @@ def call(Map params = [:]) {
           """
                 }
             }
+
 
             stage('Test Cases') {
                 steps {
@@ -72,24 +69,12 @@ def call(Map params = [:]) {
                     sh """
           GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
           echo \${GIT_TAG} >version
-          zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js version
+          cp target/${params.COMPONENT}-1.0.jar ${params.COMPONENT}.jar
+          zip -r ${params.COMPONENT}-\${GIT_TAG}.zip ${params.COMPONENT}.jar version
           curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
           """
                 }
             }
-
-//      stage('App Deployment - Dev Env') {
-//        steps {
-//          script {
-//            GIT_TAG = GIT_BRANCH.split('/').last()
-//          }
-//          build job: 'Mutable/App-Deploy', parameters: [
-//              string(name: 'ENV', value: 'dev'),
-//              string(name: 'APP_VERSION', value: "${GIT_TAG}"),
-//              string(name: 'COMPONENT', value: "${params.COMPONENT}")
-//          ]
-//        }
-//      }
 
         }
 
