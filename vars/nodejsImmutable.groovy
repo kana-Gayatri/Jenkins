@@ -6,7 +6,6 @@ def call(Map params = [:]) {
     ]
     args << params
 
-
     pipeline {
         agent {
             label params.LABEL
