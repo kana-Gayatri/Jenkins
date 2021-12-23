@@ -4,7 +4,7 @@
 //      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
 //        'userRemoteConfigs' {
 //          'hudson.plugins.git.UserRemoteConfig' {
-//            'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/frontend')
+//            'url'('https://github.com/kana-Gayatri/frontend.git')
 //          }
 //        }
 //        'branches' {
@@ -36,7 +36,8 @@ for(int i in 0..count) {
                 'scm'(class: 'hudson.plugins.git.GitSCM', plugin: 'git') {
                     'userRemoteConfigs' {
                         'hudson.plugins.git.UserRemoteConfig' {
-                            'url'("https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/${j}")
+                            'url'("https://github.com/kana-Gayatri/kana-Gayatri.git/${j}")
+                            //'url'("https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/${j}")
                             'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
                         }
                     }
@@ -67,7 +68,7 @@ pipelineJob('Mutable/App-Deploy') {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
                     }
                 }
                 'branches' {
@@ -88,7 +89,7 @@ pipelineJob('Mutable/Infra-Create') {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
                     }
                 }
                 'branches' {
@@ -109,7 +110,7 @@ pipelineJob('Mutable/Infra-Destroy') {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
                     }
                 }
                 'branches' {
@@ -136,7 +137,7 @@ pipelineJob('Immutable/Infra-Create') {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
                     }
                 }
                 'branches' {
@@ -157,7 +158,7 @@ pipelineJob('Immutable/Infra-Destroy') {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
                     }
                 }
                 'branches' {
