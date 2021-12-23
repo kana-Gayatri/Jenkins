@@ -4,7 +4,7 @@
 ////      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
 ////        'userRemoteConfigs' {
 ////          'hudson.plugins.git.UserRemoteConfig' {
-////            'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/frontend')
+////            'url'('https://github.com/kana-Gayatri/frontend.git')
 ////          }
 ////        }
 ////        'branches' {
@@ -36,7 +36,7 @@
 //                'scm'(class: 'hudson.plugins.git.GitSCM', plugin: 'git') {
 //                    'userRemoteConfigs' {
 //                        'hudson.plugins.git.UserRemoteConfig' {
-//                            'url'("https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/${j}")
+//                            'url'("https://github.com/kana-Gayatri/Jenkins.git/${j}")
 //                            'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
 //                        }
 //                    }
@@ -67,7 +67,7 @@
 //            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
 //                'userRemoteConfigs' {
 //                    'hudson.plugins.git.UserRemoteConfig' {
-//                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+//                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
 //                    }
 //                }
 //                'branches' {
@@ -88,7 +88,7 @@
 //            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
 //                'userRemoteConfigs' {
 //                    'hudson.plugins.git.UserRemoteConfig' {
-//                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+//                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
 //                    }
 //                }
 //                'branches' {
@@ -109,7 +109,7 @@
 //            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
 //                'userRemoteConfigs' {
 //                    'hudson.plugins.git.UserRemoteConfig' {
-//                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
+//                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
 //                    }
 //                }
 //                'branches' {
@@ -124,50 +124,50 @@
 //    }
 //}
 //
-//
-//folder('Immutable') {
-//    displayName('Immutable')
-//    description('Immutable')
-//}
-//
-//pipelineJob('Immutable/Infra-Create') {
-//    configure { flowdefinition ->
-//        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
-//            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
-//                'userRemoteConfigs' {
-//                    'hudson.plugins.git.UserRemoteConfig' {
-//                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
-//                    }
-//                }
-//                'branches' {
-//                    'hudson.plugins.git.BranchSpec' {
-//                        'name'('*/main')
-//                    }
-//                }
-//            }
-//            'scriptPath'('Jenkinsfile-immutable-infra-create')
-//            'lightweight'(true)
-//        }
-//    }
-//}
-//
-//pipelineJob('Immutable/Infra-Destroy') {
-//    configure { flowdefinition ->
-//        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
-//            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
-//                'userRemoteConfigs' {
-//                    'hudson.plugins.git.UserRemoteConfig' {
-//                        'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
-//                    }
-//                }
-//                'branches' {
-//                    'hudson.plugins.git.BranchSpec' {
-//                        'name'('*/main')
-//                    }
-//                }
-//            }
-//            'scriptPath'('Jenkinsfile-immutable-infra-destroy')
-//            'lightweight'(true)
-//        }
-//    }
-//}
+////
+////folder('Immutable') {
+////    displayName('Immutable')
+////    description('Immutable')
+////}
+////
+////pipelineJob('Immutable/Infra-Create') {
+////    configure { flowdefinition ->
+////        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+////            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+////                'userRemoteConfigs' {
+////                    'hudson.plugins.git.UserRemoteConfig' {
+////                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
+////                    }
+////                }
+////                'branches' {
+////                    'hudson.plugins.git.BranchSpec' {
+////                        'name'('*/main')
+////                    }
+////                }
+////            }
+////            'scriptPath'('Jenkinsfile-immutable-infra-create')
+////            'lightweight'(true)
+////        }
+////    }
+////}
+////
+////pipelineJob('Immutable/Infra-Destroy') {
+////    configure { flowdefinition ->
+////        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+////            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+////                'userRemoteConfigs' {
+////                    'hudson.plugins.git.UserRemoteConfig' {
+////                        'url'('https://github.com/kana-Gayatri/Jenkins.git')
+////                    }
+////                }
+////                'branches' {
+////                    'hudson.plugins.git.BranchSpec' {
+////                        'name'('*/main')
+////                    }
+////                }
+////            }
+////            'scriptPath'('Jenkinsfile-immutable-infra-destroy')
+////            'lightweight'(true)
+////        }
+////    }
+////}
