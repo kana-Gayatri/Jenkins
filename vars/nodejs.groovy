@@ -1,28 +1,7 @@
-def call() {
-    pipeline {
-        agent any
+def info(message) {
+    echo "INFO: ${message}"
+}
 
-        stages {
-
-            stage('Compile') {
-                steps {
-                    sh 'echo Compile'
-                }
-            }
-
-            stage('Code Quality') {
-                steps {
-                    sh 'echo Code Quality'
-                }
-            }
-
-            stage('Test Cases') {
-                steps {
-                    sh 'echo Test Cases'
-                }
-            }
-
-        }
-    }
-
+def warning(message) {
+    echo "WARNING: ${message}"
 }
