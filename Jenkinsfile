@@ -9,7 +9,7 @@ stages {
       print 'Hello'
       script {
         println "Hello World"
-      }
+`      }
     }
   }
 

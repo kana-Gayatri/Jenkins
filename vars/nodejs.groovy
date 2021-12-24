@@ -22,8 +22,9 @@ def call(Map params = [:]) {
             stage('Labeling Build') {
                 steps {
                     script {
-              addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${params.COMPONENT}"
-//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
+                        str = GIT_BRANCH.split('/').last()
+//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${params.COMPONENT}"
+            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
 //            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
                 }
