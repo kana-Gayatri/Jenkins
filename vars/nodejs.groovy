@@ -46,7 +46,7 @@ def call(Map params = [:]) {
 //                when {
 //                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
 //                }
-//                steps {
+                steps {
                     sh 'echo Test Cases'
                     sh 'env'
                 }
@@ -54,10 +54,6 @@ def call(Map params = [:]) {
 
         }
     }
-//    post {
-//        always {
-//            cleanWs()
-//        }
-//    }
 
 
+}
