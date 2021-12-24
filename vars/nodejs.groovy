@@ -8,9 +8,20 @@ def call(Map params = [:]) {
 
     pipeline {
         agent {
-            label "${params.LABEL}"
+            label params.LABEL
         }
 
+        stages {
+
+            stage('Labeling Build') {
+                steps {
+                    script {
+                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${COMPONENT}"
+//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
+//            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
+                    }
+                }
+            }
 
 //      stage('Code Quality') {
 //        steps {
@@ -27,4 +38,4 @@ def call(Map params = [:]) {
         }
     }
 
-//}
+}
