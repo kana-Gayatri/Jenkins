@@ -2,7 +2,7 @@ def call(Map params = [:]) {
     // Start Default Arguments
     def args = [
             COMPONENT                  : '',
-            LABEL                      : 'master'
+            LABEL                      : 'WORKSTATION'
     ]
     args << params
 
