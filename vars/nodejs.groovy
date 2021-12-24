@@ -1,4 +1,4 @@
-def call() {
+def call(COMPONENT) {
     pipeline {
         agent any
 
@@ -6,22 +6,22 @@ def call() {
 
             stage('Compile') {
                 steps {
-                    sh 'echo Compile'
+                    sh "echo COMPONENT = ${COMPONENT}"
                 }
             }
 
-            stage('Code Quality') {
-                steps {
-                    sh 'echo Code Quality'
-                }
-            }
-
-            stage('Test Cases') {
-                steps {
-                    sh 'echo Test Cases'
-                }
-            }
-
+//            stage('Code Quality') {
+//                steps {
+//                    sh 'echo Code Quality'
+//                }
+//            }
+//
+//            stage('Test Cases') {
+//                steps {
+//                    sh 'echo Test Cases'
+//                }
+//            }
+//
         }
     }
 
