@@ -30,6 +30,20 @@ def call(Map params = [:]) {
                 }
             }
 
+//code added 1
+            stage('Download NodeJS Dependencies') {
+                steps {
+                    sh """
+            echo "+++++++ Before"
+            ls -l
+            npm install
+            echo "+++++++ After"
+            ls -l
+          """
+                }
+            }
+//end of 1
+
             stage('Code Quality') {
                 steps {
                     sh 'echo Code Quality'
