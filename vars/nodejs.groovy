@@ -2,7 +2,7 @@ def call(Map params = [:]) {
     // Start Default Arguments
     def args = [
             COMPONENT                  : '',
-            LABEL                      : 'WORKSTATION'
+            LABEL                      : 'master'
     ]
     args << params
 
@@ -13,36 +13,39 @@ def call(Map params = [:]) {
 
         stages {
 
-            stage('Compile') {
-                steps {
-                    sh "echo COMPONENT = ${params.COMPONENT}"
-                }
-            }
-
-
             stage('Labeling Build') {
                 steps {
                     script {
                         str = GIT_BRANCH.split('/').last()
-                        //addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "COMPONENT = ${params.COMPONENT}"
+                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "COMPONENT = ${params.COMPONENT}"
                         addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "BRANCH = ${str}"
 //            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
                 }
             }
 
-//      stage('Code Quality') {
-//        steps {
-//          sh 'echo Code Quality'
-//        }
-//      }
-//
-//      stage('Test Cases') {
-//        steps {
-//          sh 'echo Test Cases'
-//        }
-//      }
+            stage('Compile') {
+                steps {
+                    sh "echo COMPONENT = ${params.COMPONENT}"
+                }
+            }
+
+            stage('Code Quality') {
+                steps {
+                    sh 'echo Code Quality'
+                }
+            }
+
+            stage('Test Cases') {
+                steps {
+                    sh 'echo Test Cases'
+                }
+            }
+
             stage('Upload Artifacts') {
+                when {
+                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                }
                 steps {
                     sh 'echo Test Cases'
                     sh 'env'
@@ -50,6 +53,13 @@ def call(Map params = [:]) {
             }
 
         }
+
+        post {
+            always {
+                cleanWs()
+            }
+        }
+
     }
 
 }
