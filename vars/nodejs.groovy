@@ -13,15 +13,21 @@ def call(Map params = [:]) {
 
         stages {
 
-            stage('Labeling Build') {
+            stage('Compile') {
                 steps {
-                    script {
-                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${COMPONENT}"
-//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
-//            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
-                    }
+                    sh "echo COMPONENT = ${params.COMPONENT}"
                 }
             }
+
+//            stage('Labeling Build') {
+//                steps {
+//                    script {
+//                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${COMPONENT}"
+//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
+//            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
+//                    }
+//                }
+//            }
 
 //      stage('Code Quality') {
 //        steps {
