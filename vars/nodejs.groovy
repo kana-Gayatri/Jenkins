@@ -1,14 +1,16 @@
-def call(String COMPONENT) {
+def call(Map params = [:]) {
+    // Start Default Arguments
+    def args = [
+            COMPONENT                  : '',
+            LABEL                      : 'master'
+    ]
+    args << params
+
     pipeline {
-        agent any
+        agent {
+            label "${params.LABEL}"
+        }
 
-        stages {
-
-            stage('Compile') {
-                steps {
-                    sh "echo COMPONENT = ${COMPONENT}"
-                }
-            }
 
 //      stage('Code Quality') {
 //        steps {
@@ -25,4 +27,4 @@ def call(String COMPONENT) {
         }
     }
 
-}
+//}
