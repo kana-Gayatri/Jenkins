@@ -40,6 +40,12 @@ def call(Map params = [:]) {
 //          sh 'echo Test Cases'
 //        }
 //      }
+            stage('Upload Artifacts') {
+                steps {
+                    sh 'echo Test Cases'
+                    sh 'env'
+                }
+            }
 
         }
     }
