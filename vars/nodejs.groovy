@@ -1,4 +1,4 @@
-def call(string COMPONENT) {
+def call(String COMPONENT) {
     pipeline {
         agent any
 
@@ -10,18 +10,18 @@ def call(string COMPONENT) {
                 }
             }
 
-//            stage('Code Quality') {
-//                steps {
-//                    sh 'echo Code Quality'
-//                }
-//            }
+//      stage('Code Quality') {
+//        steps {
+//          sh 'echo Code Quality'
+//        }
+//      }
 //
-//            stage('Test Cases') {
-//                steps {
-//                    sh 'echo Test Cases'
-//                }
-//            }
-//
+//      stage('Test Cases') {
+//        steps {
+//          sh 'echo Test Cases'
+//        }
+//      }
+
         }
     }
 
