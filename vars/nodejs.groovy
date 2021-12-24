@@ -22,9 +22,9 @@ def call(Map params = [:]) {
             stage('Labeling Build') {
                 steps {
                     script {
-            //addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${COMPONENT}"
-            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
-            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
+              addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${params.COMPONENT}"
+//            addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "${APP_VERSION}"
+//            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
                 }
             }
