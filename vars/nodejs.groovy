@@ -1,23 +1,18 @@
-def call(Map params = [:]) {
-    // Start Default Arguments
-    def args = [
-            COMPONENT                  : '',
-            LABEL                      : 'master'
-    ]
-    args << params
-
+def call(String COMPONENT, String LABEL) {
     pipeline {
         agent {
-            label params.LABEL
+            label "${LABEL}"
         }
 
         stages {
 
             stage('Compile') {
                 steps {
-                    sh "echo COMPONENT = ${params.COMPONENT}"
+                    sh "echo COMPONENT = ${COMPONENT}"
+                    sh "echo EX_COMP = ${EX_COMP}"
                 }
             }
+
 
 //            stage('Labeling Build') {
 //                steps {
