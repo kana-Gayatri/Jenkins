@@ -36,7 +36,7 @@ for(int i in 0..count) {
                 'scm'(class: 'hudson.plugins.git.GitSCM', plugin: 'git') {
                     'userRemoteConfigs' {
                         'hudson.plugins.git.UserRemoteConfig' {
-                            'url'("https://github.com/kana-Gayatri/Jenkins.git/${j}")
+                            'url'("https://github.com/kana-Gayatri//${j}.git")
                             'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
                         }
                     }
