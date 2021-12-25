@@ -44,7 +44,7 @@ def call(Map params = [:]) {
 
 
             //Sonar cube script
-            stage('Code Quality') {
+            stage('Submit Code Quality') {
                 steps {
 
                     sh """
