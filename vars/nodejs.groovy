@@ -17,7 +17,7 @@ def call(Map params = [:]) {
                 steps {
                     script {
                         str = GIT_BRANCH.split('/').last()
-//                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "COMPONENT = ${params.COMPONENT}"
+                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "COMPONENT = ${params.COMPONENT}"
                         addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "BRANCH = ${str}"
 //            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
@@ -30,19 +30,19 @@ def call(Map params = [:]) {
                 }
             }
 
-//code added 1
-            stage('Download NodeJS Dependencies') {
-                steps {
-                    sh """
-            echo "+++++++ Before"
-            ls -l
-            npm install
-            echo "+++++++ After"
-            ls -l
-          """
-                }
-            }
-//end of 1
+////code added 1
+//            stage('Download NodeJS Dependencies') {
+//                steps {
+//                    sh """
+//            echo "+++++++ Before"
+//            ls -l
+//            npm install
+//            echo "+++++++ After"
+//            ls -l
+//          """
+//                }
+//            }
+////end of 1
 
             stage('Code Quality') {
                 steps {
