@@ -23,7 +23,7 @@ def call(Map params = [:]) {
                     }
                 }
             }
-
+//INSTALL MAVEN START
             stage('Maven Compile') {
                 steps {
                     sh """
@@ -31,7 +31,7 @@ def call(Map params = [:]) {
           """
                 }
             }
-
+//INSTALL MAVEN END
             stage('Code Quality') {
                 steps {
                     sh 'echo Code Quality'
