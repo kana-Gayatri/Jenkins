@@ -30,21 +30,6 @@ def call(Map params = [:]) {
                 }
             }
 
-////code added 1
-//            stage('Download NodeJS Dependencies') {
-//                steps {
-//                    sh """
-//            echo "+++++++ Before"
-//            ls -l
-//            npm install
-//            echo "+++++++ After"
-//            ls -l
-//          """
-//                }
-//            }
-////end of 1
-
-
             stage('Code Quality') {
                 steps {
                     sh 'echo Code Quality'
@@ -58,9 +43,9 @@ def call(Map params = [:]) {
             }
 
             stage('Upload Artifacts') {
-//                when {
-//                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
-//                }
+                when {
+                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                }
                 steps {
                     sh 'echo Test Cases'
                     sh 'env'
@@ -68,7 +53,13 @@ def call(Map params = [:]) {
             }
 
         }
-    }
 
+        post {
+            always {
+                cleanWs()
+            }
+        }
+
+    }
 
 }
