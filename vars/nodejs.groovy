@@ -43,9 +43,9 @@ def call(Map params = [:]) {
             }
 
             stage('Upload Artifacts') {
-                when {
-                    expression { GIT_BRANCH ==~ "/*tags*/" }
-                }
+//                when {
+//                    expression { GIT_BRANCH ==~ "/*tags*/" }
+//                }
                 steps {
                     sh 'echo Test Cases'
                     sh 'env'
