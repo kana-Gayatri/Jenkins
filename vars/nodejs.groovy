@@ -23,7 +23,19 @@ def call(Map params = [:]) {
                     }
                 }
             }
-
+//install npm
+            stage('Download NodeJS Dependencies') {
+                steps {
+                    sh """
+            echo "+++++++ Before"
+            ls -l
+            npm install
+            echo "+++++++ After"
+            ls -l
+          """
+                }
+            }
+//install npm end
             stage('Compile') {
                 steps {
                     sh "echo COMPONENT = ${params.COMPONENT}"
