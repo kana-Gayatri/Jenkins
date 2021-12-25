@@ -24,28 +24,34 @@ folder('CI-Pipelines') {
     description('CI-Pipelines')
 }
 
-pipelineJob('CI-Pipelines/cart') {
-    configure { flowdefinition ->
-        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
-            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
-                'userRemoteConfigs' {
-                    'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://github.com/kana-Gayatri/cart.git')
+def component= ["cart", "catalogue", "user", "shipping", "frontend", "payment"]
+
+def count = (component.size() -1 )
+
+for(int i in 0..count) {
+    def j=component[i]
+    pipelineJob("CI-Pipelines/${j}") {
+        configure { flowdefinition ->
+            flowdefinition << delegate.'definition'(class: 'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition', plugin: 'workflow-cps') {
+                'scm'(class: 'hudson.plugins.git.GitSCM', plugin: 'git') {
+                    'userRemoteConfigs' {
+                        'hudson.plugins.git.UserRemoteConfig' {
+                            'url'("https://github.com/kana-Gayatri/Jenkins.git/${j}")
+                            'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
+                        }
+                    }
+                    'branches' {
+                        'hudson.plugins.git.BranchSpec' {
+                            'name'('*/tags/*')
+                        }
+                        'hudson.plugins.git.BranchSpec' {
+                            'name'('*/main')
+                        }
                     }
                 }
-                'branches' {
-                    'hudson.plugins.git.BranchSpec' {
-                        'name'('*/main')
-                    }
-                }
+                'scriptPath'('Jenkinsfile')
+                'lightweight'(true)
             }
-            'scriptPath'('Jenkinsfile')
-            'lightweight'(true)
         }
     }
 }
-
-
-
-
-//                    'url'('https://github.com/kana-Gayatri/Jenkins.git')
