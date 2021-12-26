@@ -10,6 +10,9 @@ def call(Map params = [:]) {
         agent {
             label params.LABEL
         }
+        environment {
+            NEXUS = credentials("NEXUS")
+        }
 
         stages {
 
@@ -72,6 +75,7 @@ def call(Map params = [:]) {
           zip -r ${params.COMPONENT}-\${GIT_TAG}.zip ${params.COMPONENT}.jar version
           curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
           """
+                    //sh 'echo upload artifactory'
                 }
             }
 
