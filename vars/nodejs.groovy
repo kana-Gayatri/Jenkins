@@ -46,22 +46,24 @@ def call(Map params = [:]) {
             //Sonar cube script
             stage('Submit Code Quality') {
                 steps {
-
+//
 //                    sh """
 //                    sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.16.240:9000 -Dsonar.login=0edd0d89a476069a048b9cb00ddd4a900869c515
 //                    """
 //                    sh '''
 //                        sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.16.240:9000  -Dsonar.login=0edd0d89a476069a048b9cb00ddd4a900869c515
 //                    '''
-                    echo ok
+//                    echo ok
+                    sh 'echo code Quality'
                 }
             }
             stage('Check Code Quality Gate') {
                 steps {
 //            sh """
 //            sonar-quality-gate.sh admin admin123 172.31.16.240 ${params.COMPONENT}
-            echo OK 
+//            echo OK
 //          """
+                    sh 'echo code Quality Gate'
                 }
             }
 
