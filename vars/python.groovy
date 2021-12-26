@@ -60,7 +60,7 @@ def call(Map params = [:]) {
           GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
           echo \${GIT_TAG} >version
           zip -r ${params.COMPONENT}-\${GIT_TAG}.zip *.py requirements.txt ${params.COMPONENT}.ini version
-          curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+          curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
           """
                 }
             }

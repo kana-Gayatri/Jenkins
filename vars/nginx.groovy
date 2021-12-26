@@ -62,7 +62,7 @@ def call(Map params = [:]) {
           cd static
           zip -r ../${params.COMPONENT}-\${GIT_TAG}.zip *
           cd ..
-          curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.7.184:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+          curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
           """
                 }
             }
