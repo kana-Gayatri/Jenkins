@@ -1,0 +1,40 @@
+pipeline {
+  agent any
+
+  parameters {
+    string(name: 'ENV', defaultValue: '', description: 'Which Environment?')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'Which Version of APP?')
+    string(name: 'COMPONENT', defaultValue: '', description: 'Which APP Component?')
+  }
+
+  environment {
+    NEXUS = credentials("NEXUS")
+  }
+
+  stages {
+
+    stage('Labeling Build') {
+      steps {
+        script {
+          addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "ENV = ${ENV}"
+          addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "VERSION = ${APP_VERSION}"
+          addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "APP = ${COMPONENT}"
+        }
+      }
+    }
+
+    stage('Check Artifact') {
+      steps {
+        sh '''
+          curl -u admin:admin123 -X GET "http://172.31.8.28:8081/service/rest/v1/components?repository=${COMPONENT}" -H "accept: application/json" | jq ".items[].name | grep ${APP_VERSION}"
+        '''
+      }
+    }
+
+//    stage('App Deployment') {
+//
+//    }
+
+  }
+
+}
