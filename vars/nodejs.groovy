@@ -91,15 +91,15 @@ def call(Map params = [:]) {
 //                expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
 //            }
                 steps {
-                    sh """
-            GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
-            echo \${GIT_TAG} >version
-            zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js version
-//Nexus instance private id
-
-            curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
-            """
-//                    sh 'echo upload artifact'
+//                    sh """
+//            GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
+//            echo \${GIT_TAG} >version
+//            zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js version
+////Nexus instance private id
+//
+//            curl -f -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+//            """
+             sh 'echo upload artifact'
                 }
             }
 
