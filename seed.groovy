@@ -68,6 +68,7 @@ pipelineJob('Mutable/App-Deploy') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
                         'url'('https://github.com/kana-Gayatri//${j}.git')
+
                       //     'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
                     }
                 }
