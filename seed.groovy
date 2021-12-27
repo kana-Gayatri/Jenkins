@@ -19,6 +19,7 @@
 //  }
 //}
 
+
 folder('CI-Pipelines') {
     displayName('CI-Pipelines')
     description('CI-Pipelines')
@@ -55,3 +56,8 @@ for(int i in 0..count) {
         }
     }
 }
+
+
+
+
+//                            'url'("https://github.com/kana-Gayatri//${j}.git")
