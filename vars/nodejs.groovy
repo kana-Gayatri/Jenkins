@@ -81,7 +81,7 @@ def call(Map params = [:]) {
 //                }
                 steps {
                     sh 'echo Test Cases'
-                    sh 'env'
+                //    sh 'env'
                 }
             }
 
