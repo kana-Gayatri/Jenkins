@@ -11,7 +11,7 @@ pipeline {
     NEXUS = credentials("NEXUS")
   }
 
-  stages {
+ stages {
 
     stage('Labeling Build') {
       steps {
@@ -26,7 +26,7 @@ pipeline {
     stage('Check Artifact') {
       steps {
         sh '''
-          curl -u admin:admin123 -X GET "http://172.31.8.28:8081/service/rest/v1/components?repository=${COMPONENT}" -H "accept: application/json" | jq ".items[].name | grep ${APP_VERSION}"
+          curl -u admin:admin123 -X GET "http://172.31.83.68:8081/service/rest/v1/components?repository=${COMPONENT}" -H "accept: application/json" | jq ".items[].name | grep ${APP_VERSION}"
         '''
       }
     }
