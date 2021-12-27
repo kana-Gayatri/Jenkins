@@ -87,11 +87,11 @@ def call(Map params = [:]) {
 
 
 
-            stage('Upload Artifacts') {
+//            stage('Upload Artifacts') {
 //                when {
 //                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
 //                }
-          steps {
+ //         steps {
 //          sh """
 //          GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
 //          echo \${GIT_TAG} >version
@@ -99,9 +99,9 @@ def call(Map params = [:]) {
 //          //zip -r ${params.COMPONENT}-${GIT_TAG}.zip node_modules server.js
 //          """
 //
-          echo OK
-          }
-            }
+//          echo OK
+//          }
+ //           }
 
 
 
