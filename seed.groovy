@@ -69,9 +69,7 @@ pipelineJob('Mutable/App-Deploy') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
                         'url'('https://github.com/kana-Gayatri//Jenkins.git')
-
-                      //     'url'('https://DevOps-Batches@dev.azure.com/DevOps-Batches/DevOps60/_git/jenkins')
-                    }
+                      }
                 }
                 'branches' {
                     'hudson.plugins.git.BranchSpec' {
@@ -85,9 +83,49 @@ pipelineJob('Mutable/App-Deploy') {
     }
 }
 
+pipelineJob('Mutable/Infra-create') {
+    configure { flowdefinition ->
+        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+                'userRemoteConfigs' {
+                    'hudson.plugins.git.UserRemoteConfig' {
+                        'url'('https://github.com/kana-Gayatri//Jenkins.git')
+                    }
+                }
+                'branches' {
+                    'hudson.plugins.git.BranchSpec' {
+                        'name'('*/main')
+                    }
+                }
+            }
+            'scriptPath'('Jenkinsfile-mutable-infra-create')
+            'lightweight'(true)
+        }
+    }
+}
 
 
 
+pipelineJob('Mutable/Infra-destroy') {
+    configure { flowdefinition ->
+        flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+            'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+                'userRemoteConfigs' {
+                    'hudson.plugins.git.UserRemoteConfig' {
+                        'url'('https://github.com/kana-Gayatri//Jenkins.git')
+                    }
+                }
+                'branches' {
+                    'hudson.plugins.git.BranchSpec' {
+                        'name'('*/main')
+                    }
+                }
+            }
+            'scriptPath'('Jenkinsfile-mutable-infra-destroy')
+            'lightweight'(true)
+        }
+    }
+}
 
 
 
