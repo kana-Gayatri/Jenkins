@@ -3,36 +3,27 @@ pipeline {
 
   stages {
 
-    stage('repo1') {
+    stage('Repo Clone') {
       steps {
-        dir('FRONTEND') {
-          git branch: 'main', url: 'https://github.com/kana-Gayatri/frontend.git'
-          sh 'ls -ltr'
+        dir('terraform') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
         }
       }
     }
 
-    stage('repo2') {
+    stage('VPC') {
       steps {
-        dir('CART') {
-          git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
-          sh 'ls -ltr'
+        dir('terraform') {
+        sh '''
+        cd vpc
+        make dev-apply
+        '''
         }
       }
     }
 
-    stage('repo3') {
-      steps {
-        dir('CART') {
-          sh 'ls -ltr'
-        }
-
-        dir('FRONTEND') {
-          sh 'ls -ltr'
-        }
-      }
     }
 
   }
 
-}
+
