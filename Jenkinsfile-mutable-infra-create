@@ -14,10 +14,10 @@ pipeline {
     stage('VPC') {
       steps {
         dir('terraform') {
-         sh 'ls -ltr'
          sh '''
          cd vpc
-         sh make dev-apply
+         sh 'ls -ltr'
+         make dev-apply
          '''
         }
       }
