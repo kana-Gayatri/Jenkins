@@ -16,7 +16,8 @@ pipeline {
         dir('terraform') {
           sh '''
             cd vpc
-            make dev-apply
+            echo $pwd
+            //make dev-apply
           '''
 }
 }
