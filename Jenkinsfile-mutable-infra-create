@@ -1,9 +1,9 @@
 pipeline {
   agent any
 
-  options {
-    AnsiColor('xterm')
-  }
+//  options {
+//    AnsiColor('xterm')
+//  }
 
   parameters {
     string(name: 'ENV', defaultValue: '', description: 'Which Environment?')
