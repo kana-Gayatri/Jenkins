@@ -18,3 +18,8 @@ pipeline {
             cd vpc
             make dev-apply
           '''
+}
+}
+}
+}
+}
