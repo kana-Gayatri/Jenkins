@@ -17,7 +17,7 @@ pipeline {
          sh 'ls -ltr'
          sh '''
          cd vpc
-         //echo 'vpc'
+         sh 'pwd'
          make dev-apply
          '''
         }
