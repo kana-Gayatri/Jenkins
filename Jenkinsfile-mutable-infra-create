@@ -15,11 +15,11 @@ pipeline {
       steps {
         dir('terraform') {
          sh 'ls -ltr'
-         //sh '''
+         sh '''
          cd vpc
-         sh 'ls -ltr'
+         echo 'vpc'
 
-//         '''
+         '''
         }
       }
     }
