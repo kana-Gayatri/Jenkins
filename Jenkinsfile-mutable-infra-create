@@ -14,7 +14,7 @@ pipeline {
     stage('VPC') {
       steps {
         dir('terraform') {
-        //cd vpc
+        cd db
          sh 'ls -ltr'
         }
       }
