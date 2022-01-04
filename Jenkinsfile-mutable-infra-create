@@ -14,10 +14,11 @@ pipeline {
     stage('VPC') {
       steps {
         dir('terraform') {
-        sh '''
-        cd db
+        //cd vpc
          sh 'ls -ltr'
-        '''
+         sh '''
+         cd vpc
+         '''
         }
       }
     }
