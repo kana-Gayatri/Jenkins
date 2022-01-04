@@ -18,7 +18,8 @@ pipeline {
          sh 'ls -ltr'
          sh '''
          cd vpc
-         make dev-apply
+         //make dev-apply
+          sh 'ls -ltr'
          '''
         }
       }
