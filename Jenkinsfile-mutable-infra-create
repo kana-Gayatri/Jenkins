@@ -16,11 +16,10 @@ pipeline {
         dir('terraform') {
           sh '''
             cd vpc
-            echo "yes"
-            //make dev-apply
+            make dev-apply
           '''
-}
-}
+           }
+      }
 }
 }
 }
