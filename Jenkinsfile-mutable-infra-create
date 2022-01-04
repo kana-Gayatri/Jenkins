@@ -1,12 +1,38 @@
 pipeline {
   agent any
 
+//  options {
+//    AnsiColor('xterm')
+//  }
+
+  parameters {
+    string(name: 'ENV', defaultValue: '', description: 'Which Environment?')
+  }
+
   stages {
 
     stage('Repo Clone') {
       steps {
         dir('terraform') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
+        }
+        dir('FRONTEND') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/frontend.git'
+        }
+        dir('CART') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
+        }
+        dir('CATALOGUE') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/catalogue.git'
+        }
+        dir('USER') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/user.git'
+        }
+        dir('SHIPPING') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/shipping.git'
+        }
+        dir('PAYMENT') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/payment.git'
         }
       }
     }
@@ -16,10 +42,114 @@ pipeline {
         dir('terraform') {
           sh '''
             cd vpc
-            make dev-apply
+            //make ${ENV}-apply
           '''
-           }
+        }
       }
-}
-}
+    }
+
+    stage('DB-&-ALB') {
+      parallel {
+
+        stage('DB') {
+          steps {
+            dir('terraform') {
+              sh '''
+                cd db
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+        stage('ALB') {
+          steps {
+            dir('terraform') {
+              sh '''
+                cd alb
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+      }
+
+    }
+
+    stage('APP COMPONENTS') {
+      parallel {
+
+        stage('CART') {
+          steps {
+            dir('CART') {
+              sh '''
+                cd terraform-mutable
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+        stage('CATALOGUE') {
+          steps {
+            dir('CATALOGUE') {
+              sh '''
+                cd terraform-mutable
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+        stage('USER') {
+          steps {
+            dir('USER') {
+              sh '''
+                cd terraform-mutable
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+        stage('SHIPPING') {
+          steps {
+            dir('SHIPPING') {
+              sh '''
+                cd terraform-mutable
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+
+        stage('PAYMENT') {
+          steps {
+            dir('PAYMENT') {
+              sh '''
+                cd terraform-mutable
+                make ${ENV}-apply
+              '''
+            }
+          }
+        }
+
+      }
+
+    }
+
+    stage('FRONTEND') {
+      steps {
+        dir('FRONTEND') {
+          sh '''
+              cd terraform-mutable
+              make ${ENV}-apply
+            '''
+        }
+      }
+    }
+  }
+
 }
