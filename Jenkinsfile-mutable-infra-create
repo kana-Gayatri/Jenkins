@@ -3,6 +3,7 @@ pipeline {
 
   stages {
 
+
     stage('Repo Clone') {
       steps {
         dir('terraform') {
