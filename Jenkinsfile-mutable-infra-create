@@ -1,21 +1,39 @@
 pipeline {
-//  agent any
-
 agent {
   label 'WORKSTATION'
 }
+  options {
+    ansiColor('xterm')
+  }
 
-
-
-  stages {
+ stages {
 
     stage('Repo Clone') {
       steps {
         dir('terraform') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
         }
+        dir('FRONTEND') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
+        }
+        dir('CART') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
+        }
+        dir('CATALOGUE') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/catalogue.git'
+        }
+        dir('USER') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/user.git'
+        }
+        dir('SHIPPING') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/shipping.git'
+        }
+        dir('PAYMENT') {
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/payment.git'
+        }
       }
     }
+
     stage('VPC') {
       steps {
         dir('terraform') {
@@ -27,6 +45,108 @@ agent {
       }
     }
 
+    stage('DB-&-ALB') {
+      parallel {
+
+        stage('DB') {
+          steps {
+            dir('terraform') {
+              sh '''
+                cd db
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+        stage('ALB') {
+          steps {
+            dir('terraform') {
+              sh '''
+                cd alb
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+      }
+
+    }
+
+    stage('APP COMPONENTS') {
+      parallel {
+
+        stage('CART') {
+          steps {
+            dir('CART') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+        stage('CATALOGUE') {
+          steps {
+            dir('CATALOGUE') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+        stage('USER') {
+          steps {
+            dir('USER') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+        stage('SHIPPING') {
+          steps {
+            dir('SHIPPING') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+
+        stage('PAYMENT') {
+          steps {
+            dir('PAYMENT') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
+
+      }
+
+    }
+
+    stage('FRONTEND') {
+      steps {
+        dir('FRONTEND') {
+          sh '''
+              cd terraform-mutable
+              make dev-apply
+            '''
+        }
+      }
+    }
   }
 
 }
