@@ -12,7 +12,7 @@ agent {
       steps {
        //  dir('terraform') {
         //        git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
-         //     }
+        //      }
         dir('CART') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
         }
@@ -94,52 +94,6 @@ make dev-apply
         stage('CATALOGUE') {
           steps {
             dir('CATALOGUE') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
-
-
-        stage('USER') {
-          steps {
-            dir('USER') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
-
-        stage('PAYMENT') {
-          steps {
-            dir('PAYMENT') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
-
-
-        stage('SHIPPING') {
-          steps {
-            dir('SHIPPING') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
-
-        stage('FRONTEND') {
-          steps {
-            dir('FRONTEND') {
               sh '''
                 cd terraform-mutable
                 make dev-apply
