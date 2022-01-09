@@ -14,7 +14,7 @@ agent {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
         }
         dir('FRONTEND') {
-          git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
+          git branch: 'main', url: 'https://github.com/kana-Gayatri/frontend.git'
         }
         dir('CART') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
