@@ -53,7 +53,7 @@ agent {
             dir('terraform') {
               sh '''
                 cd db
-                make dev-apply
+              //  make dev-apply
               '''
             }
           }
