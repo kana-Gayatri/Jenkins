@@ -79,16 +79,16 @@ make dev-apply
 
 
 
-       stage('CART') {
-          steps {
-            dir('CART') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
+//       stage('CART') {
+//          steps {
+//            dir('CART') {
+//              sh '''
+//                cd terraform-mutable
+//                make dev-apply
+//              '''
+//            }
+//          }
+//        }
 
 
         stage('CATALOGUE') {
