@@ -91,10 +91,9 @@ make dev-apply
           }
         }
 
-
-        stage('CATALOGUE') {
+        stage('USER') {
           steps {
-            dir('CATALOGUE') {
+            dir('USER') {
               sh '''
                 cd terraform-mutable
                 make dev-apply
