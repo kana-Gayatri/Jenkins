@@ -10,9 +10,9 @@ agent {
 
     stage('Repo Clone') {
       steps {
-        dir('terraform') {
-          git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
-        }
+ //       dir('terraform') {
+ //         git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
+ //       }
         dir('FRONTEND') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/frontend.git'
         }
