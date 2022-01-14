@@ -96,7 +96,7 @@ cd alb
             dir('USER') {
               sh '''
                 cd terraform-mutable
-               // make dev-apply
+                make dev-apply
               '''
             }
           }
