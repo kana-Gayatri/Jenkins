@@ -62,16 +62,16 @@ make dev-apply
 //}
 //}
 
-stage('ALB') {
-steps {
-dir('terraform') {
-sh '''
-cd alb
+//stage('ALB') {
+//steps {
+//dir('terraform') {
+//sh '''
+//cd alb
 //make dev-apply
-'''
-}
-}
-}
+//'''
+//}
+//}
+//}
 
 //}
 
@@ -85,22 +85,22 @@ cd alb
             dir('CART') {
               sh '''
                 cd terraform-mutable
-                //make dev-apply
-              '''
-            }
-          }
-        }
-
-        stage('USER') {
-          steps {
-            dir('USER') {
-              sh '''
-                cd terraform-mutable
                 make dev-apply
               '''
             }
           }
         }
+
+        //stage('USER') {
+         // steps {
+          //  dir('USER') {
+           //   sh '''
+            //    cd terraform-mutable
+             //   make dev-apply
+             // '''
+           // }
+         // }
+       // }
 
 
     }
