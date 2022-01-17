@@ -78,8 +78,8 @@ agent {
 //}
 
 
-stage('APP-COMPONENTS') {
-parallel {
+//stage('APP-COMPONENTS') {
+//parallel {
        stage('CART') {
           steps {
             dir('CART') {
@@ -91,20 +91,10 @@ parallel {
           }
         }
 
-        stage('USER') {
-          steps {
-            dir('USER') {
-              sh '''
-                cd terraform-mutable
-                make dev-apply
-              '''
-            }
-          }
-        }
 
 
-    }
-  }
+ //   }
+ // }
 }
 
 }
