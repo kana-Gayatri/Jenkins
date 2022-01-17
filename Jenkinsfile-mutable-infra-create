@@ -10,9 +10,9 @@ agent {
 
     stage('Repo Clone') {
       steps {
-        dir('terraform') {
-                git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
-              }
+       // dir('terraform') {
+       //         git branch: 'main', url: 'https://github.com/kana-Gayatri/terraform-mutable.git'
+       //       }
         dir('CART') {
           git branch: 'main', url: 'https://github.com/kana-Gayatri/cart.git'
         }
@@ -37,16 +37,16 @@ agent {
     }
 
 
-stage('VPC') {
-steps {
-dir('terraform') {
-sh '''
-cd vpc
-make dev-apply
-'''
-}
-}
-}
+//stage('VPC') {
+//steps {
+//dir('terraform') {
+//sh '''
+//cd vpc
+//make dev-apply
+//'''
+//}
+//}
+//}
 
 //stage('DB-&-ALB') {
 //parallel {
@@ -78,9 +78,9 @@ make dev-apply
 //}
 
 
-//stage('APP-COMPONENTS') {
-//parallel {
-       stage('Catalogue') {
+stage('APP-COMPONENTS') {
+parallel {
+       stage('CART') {
           steps {
             dir('CART') {
               sh '''
@@ -91,16 +91,16 @@ make dev-apply
           }
         }
 
-        //stage('USER') {
-         // steps {
-          //  dir('USER') {
-           //   sh '''
-            //    cd terraform-mutable
-             //   make dev-apply
-             // '''
-           // }
-         // }
-       // }
+        stage('USER') {
+          steps {
+            dir('USER') {
+              sh '''
+                cd terraform-mutable
+                make dev-apply
+              '''
+            }
+          }
+        }
 
 
     }
