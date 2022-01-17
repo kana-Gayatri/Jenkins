@@ -51,16 +51,16 @@ make dev-apply
 //stage('DB-&-ALB') {
 //parallel {
 
-stage('DB') {
-steps {
-dir('terraform') {
-sh '''
-cd db
-make dev-apply
-'''
-}
-}
-}
+//stage('DB') {
+//steps {
+//dir('terraform') {
+//sh '''
+//cd db
+//make dev-apply
+//'''
+//}
+//}
+//}
 
 //stage('ALB') {
 //steps {
