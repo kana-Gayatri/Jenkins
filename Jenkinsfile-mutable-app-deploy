@@ -31,9 +31,9 @@ pipeline {
 //        sh 'echo check Artifact '
         '''
       }
-              steps {
-                    sh 'echo Test Cases'
-                }
+     //         steps {
+      //              sh 'echo Test Cases'
+      //          }
     }
 //    stage('App Deployment') {
 //
