@@ -7,9 +7,9 @@ pipeline {
     string(name: 'COMPONENT', defaultValue: '', description: 'Which APP Component?')
   }
 
- // environment {
- //   NEXUS = credentials("NEXUS")
- // }
+  environment {
+    NEXUS = credentials("NEXUS")
+  }
 
  stages {
 
