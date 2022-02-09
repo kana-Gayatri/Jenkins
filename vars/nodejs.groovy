@@ -6,111 +6,53 @@ def call(Map params = [:]) {
     ]
     args << params
 
+
     pipeline {
         agent {
             label params.LABEL
         }
-        environment {
-            NEXUS = credentials("NEXUS")
-        }
+
+//        environment {
+//            NEXUS = credentials("NEXUS")
+//        }
+
         stages {
 
             stage('Labeling Build') {
                 steps {
                     script {
                         str = GIT_BRANCH.split('/').last()
-                        addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "COMPONENT = ${params.COMPONENT}"
                         addShortText background: 'yellow', color: 'black', borderColor: 'yellow', text: "BRANCH = ${str}"
-//            addShortText background: 'orange', color: 'black', borderColor: 'yellow', text: "${ENV}"
                     }
                 }
             }
-//install npm
-            stage('Download NodeJS Dependencies') {
+
+
+            stage('Docker Build') {
+                when {
+                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                }
                 steps {
                     sh """
-            echo "+++++++ Before"
-            ls -l
-            npm install
-            echo "+++++++ After"
-            ls -l
-          """
-                }
-            }
-//install npm end
-            stage('Compile') {
-                steps {
-                    sh "echo COMPONENT = ${params.COMPONENT}"
-                }
-            }
-
-
-            //Sonar cube script
-            stage('Submit Code Quality') {
-                steps {
-//
-//                    sh """
-//                    sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.16.240:9000 -Dsonar.login=0edd0d89a476069a048b9cb00ddd4a900869c515
-//                    """
-//                    sh '''
-//                        sonar-scanner -Dsonar.projectKey=${params.COMPONENT} -Dsonar.sources=. -Dsonar.host.url=http://172.31.16.240:9000  -Dsonar.login=0edd0d89a476069a048b9cb00ddd4a900869c515
-//                    '''
-//                    echo ok
-                    sh 'echo code Quality'
-                }
-            }
-            stage('Check Code Quality Gate') {
-                steps {
-//            sh """
-//            sonar-quality-gate.sh admin admin123 172.31.16.240 ${params.COMPONENT}
-//            echo OK
-//          """
-                    sh 'echo code Quality Gate'
-                }
-            }
-
-            stage('Test Cases') {
-                steps {
-                    sh 'echo Test Cases'
-                }
-            }
-
-//            stage('Upload Artifacts') {
-////                when {
-////                    expression { GIT_BRANCH ==~ "/*tags*/" }
-////                }
-//                steps {
-//                    sh 'echo Test Cases'
-//                //    sh 'env'
-//                }
-//            }
-
-
-
-            stage('Upload Artifacts') {
-//                when {
-//                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
-//                }
-          steps {
-          sh """
           GIT_TAG=`echo ${GIT_BRANCH} | awk -F / '{print \$NF}'`
           echo \${GIT_TAG} >version
-           zip -r ${params.COMPONENT}-\${GIT_TAG}.zip node_modules server.js
-           curl -v -u ${NEXUS} --upload-file ${params.COMPONENT}-\${GIT_TAG}.zip http://172.31.8.28:8081/repository/${params.COMPONENT}/${params.COMPONENT}-\${GIT_TAG}.zip
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 946075822778.dkr.ecr.us-east-1.amazonaws.com
+          docker build -t 946075822778.dkr.ecr.us-east-1.amazonaws.com/${params.COMPONENT}:\${GIT_TAG} .
+          docker push 946075822778.dkr.ecr.us-east-1.amazonaws.com/${params.COMPONENT}:\${GIT_TAG}
+          docker tag 946075822778.dkr.ecr.us-east-1.amazonaws.com/${params.COMPONENT}:\${GIT_TAG} 739561048503.dkr.ecr.us-east-1.amazonaws.com/${params.COMPONENT}:latest
+          docker push 946075822778.dkr.ecr.us-east-1.amazonaws.com/${params.COMPONENT}:latest
           """
 
-         // echo OK
-          }
+                }
             }
 
-
-
-
         }
-//        post {
-//            always {
-//                cleanWs()
-//            }
+        post {
+            always {
+                cleanWs()
+            }
+        }
+
     }
 
 }
